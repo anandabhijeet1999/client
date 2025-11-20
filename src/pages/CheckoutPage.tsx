@@ -45,6 +45,7 @@ const CheckoutPage = () => {
     cardholderName: "",
     expiryDate: "",
     cvv: "",
+    upiId: "",
   });
 
   useEffect(() => {
@@ -105,6 +106,13 @@ const CheckoutPage = () => {
     if (paymentMethod === "card") {
       if (!formData.cardNumber || !formData.cardholderName || !formData.expiryDate || !formData.cvv) {
         alert("Please fill in all card details");
+        return;
+      }
+    }
+
+    if (paymentMethod === "wallet") {
+      if (!formData.upiId) {
+        alert("Please enter your UPI ID");
         return;
       }
     }
@@ -267,6 +275,23 @@ const CheckoutPage = () => {
                         required
                       />
                     </div>
+                  </div>
+                </div>
+              )}
+
+              {paymentMethod === "wallet" && (
+                <div className="card-details">
+                  <div className="form-field">
+                    <label htmlFor="upiId">UPI ID</label>
+                    <input
+                      type="text"
+                      id="upiId"
+                      name="upiId"
+                      placeholder="username@bank"
+                      value={formData.upiId}
+                      onChange={handleInputChange}
+                      required
+                    />
                   </div>
                 </div>
               )}
